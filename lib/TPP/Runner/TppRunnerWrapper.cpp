@@ -27,6 +27,8 @@
 
 #include <algorithm>
 
+#include <iostream>
+
 using namespace mlir;
 using namespace mlir::tpp;
 
@@ -86,6 +88,7 @@ struct TppRunnerWrapper
       return;
     }
 
+    std::cout << "randomSplat=" << randomSplat << std::endl;
     if (randomSplat && failed(bench.replaceSplatWithRandom())) {
       (void)bench.emitError(
           "Error converting splat tensors with random values");

@@ -16,6 +16,7 @@
 #include "TPP/Transforms/Utils/BuilderUtils.h"
 
 #include <optional>
+#include <iostream>
 
 namespace mlir {
 

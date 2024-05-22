@@ -21,7 +21,7 @@ namespace utils {
 std::optional<int64_t> getVnniBlockingFactor(Type type) {
   auto elementType = getElementTypeOrSelf(type);
   if (elementType.isBF16())
-    return libxsmm_cpuid_dot_pack_factor(LIBXSMM_DATATYPE_BF16);
+    return 2;
   return std::nullopt;
 }
 

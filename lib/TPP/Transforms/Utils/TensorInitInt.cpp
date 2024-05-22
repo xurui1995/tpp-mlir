@@ -7,7 +7,7 @@
 //===----------------------------------------------------------------------===//
 
 #include "TPP/Transforms/Utils/TensorInitInt.h"
-
+#include<iostream>
 using namespace mlir;
 
 TensorInitInt::DataType TensorInitInt::getTensorInitDataType(mlir::Type type) {
@@ -76,10 +76,12 @@ DenseElementsAttr ConstantTensorInitInt::get(ShapedType shape) {
 }
 
 void ConstantTensorInitInt::fillData() {
+   std::cout << "ConstantTensorInitInt::fillData() " << std::endl;
   assert(false && "Should not be called");
 }
 
 void SimpleTensorInitInt::fillData() {
+  std::cout << "SimpleTensorInitInt::fillData() " << std::endl;
   assert(buffer.size() == 0 && "Buffer not empty");
   uint64_t data[3] = {0, 1, 2};
   for (size_t i = 0; i < size; i++)
@@ -87,6 +89,7 @@ void SimpleTensorInitInt::fillData() {
 }
 
 void ContinuousTensorInitInt::fillData() {
+    std::cout << "ContinuousTensorInitInt::fillData() " << std::endl;
   assert(buffer.size() == 0 && "Buffer not empty");
   float normFactor = static_cast<float>(size);
   for (size_t i = 0; i < size; i++)
@@ -95,12 +98,14 @@ void ContinuousTensorInitInt::fillData() {
 }
 
 void RandomTensorInitInt::fillData() {
+  std::cout << "RandomTensorInitInt::fillData() " << std::endl;
   assert(buffer.size() == 0 && "Buffer not empty");
   for (size_t i = 0; i < size; i++)
     push(next());
 }
 
 void NormalTensorInitInt::fillData() {
+   std::cout << "NormalTensorInitInt::fillData() " << std::endl;
   assert(buffer.size() == 0 && "Buffer not empty");
   for (size_t i = 0; i < size; i++)
     push(next());

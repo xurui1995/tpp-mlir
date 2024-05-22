@@ -40,6 +40,11 @@ else()
   set(MLIR_INCLUDE_DIRS "${MLIR_INCLUDE_DIR};${MLIR_GENERATED_INCLUDE_DIR}")
 endif()
 
+if(MLIR_ENABLE_BINDINGS_PYTHON)
+  include(MLIRDetectPythonEnv)
+  mlir_configure_python_dev_packages()
+endif()
+
 set(MLIR_BINARY_DIR ${CMAKE_BINARY_DIR})
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/modules")
 
@@ -74,6 +79,10 @@ add_subdirectory(lib)
 add_subdirectory(runtime)
 add_subdirectory(tools)
 add_subdirectory(test)
+if(MLIR_ENABLE_BINDINGS_PYTHON)
+  message(STATUS "Enabling Python API")
+  add_subdirectory(python)
+endif()
 
 # Benchmarks
 set(BENCHMARK_DIR "${PROJECT_SOURCE_DIR}/benchmarks")

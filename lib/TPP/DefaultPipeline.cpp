@@ -24,7 +24,7 @@
 #include "mlir/Transforms/Passes.h"
 
 #include <string>
-
+#include <iostream>
 using namespace mlir;
 using namespace mlir::tpp;
 
@@ -184,6 +184,12 @@ private:
     // Print IR of kernel and main in LLVM dialect
     if (print == PrintStage::LLVM)
       pm.addPass(createPrintIRPass());
+    
+
+  std::string lhsStr;
+  llvm::raw_string_ostream lhsStream(lhsStr);
+  pm.printAsTextualPipeline(lhsStream);
+  std::cout << "pipeline= " << lhsStr << std::endl;
   }
 };
 

@@ -50,6 +50,7 @@
 
 #include <algorithm>
 #include <string>
+#include <iostream>
 
 using namespace mlir;
 
@@ -109,11 +110,14 @@ LogicalResult MLIRBench::checkKernelSignature() {
 }
 
 LogicalResult MLIRBench::replaceSplatWithRandom() {
+
+  std::cout << "seed=" << seed << std::endl;
   if (!seed)
     return module.emitError("No seed for random init");
 
   // Only replace attribute if it's a dense splat
   auto replaceSplat = [&](ShapedType shape, Attribute attr) -> Attribute {
+    std::cout << "replaceSplat" << std::endl;
     // We only change dense attributes that are splat
     auto value = dyn_cast<DenseElementsAttr>(attr);
     if (!value || !value.isSplat())

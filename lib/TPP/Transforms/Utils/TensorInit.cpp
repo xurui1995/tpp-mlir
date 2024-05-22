@@ -12,6 +12,7 @@
 
 #include <functional>
 #include <unordered_map>
+#include <iostream>
 
 using namespace mlir;
 
@@ -91,19 +92,24 @@ TensorInitPtr getTensorInit(TensorInitType type, mlir::Type elmType, int seed) {
     auto dataType = TensorInitFloat::getTensorInitDataType(elmType);
     switch (type) {
     case TensorInitType::Constant:
+      std::cout << "1" << std::endl;
       initPtr = std::make_shared<ConstantTensorInitFloat>(dataType);
       break;
     case TensorInitType::Simple:
+     std::cout << "2" << std::endl;
       initPtr = std::make_shared<SimpleTensorInitFloat>(dataType);
       break;
     case TensorInitType::Continuous:
+     std::cout << "3" << std::endl;
       initPtr = std::make_shared<ContinuousTensorInitFloat>(dataType);
       break;
     case TensorInitType::Random:
+     std::cout << "4" << std::endl;
       assert(seed && "Can't call random initializers without seed");
       initPtr = std::make_shared<RandomTensorInitFloat>(dataType, seed);
       break;
     case TensorInitType::Normal:
+     std::cout << "5" << std::endl;
       assert(seed && "Can't call random initializers without seed");
       initPtr = std::make_shared<NormalTensorInitFloat>(dataType, seed);
       break;
@@ -115,20 +121,26 @@ TensorInitPtr getTensorInit(TensorInitType type, mlir::Type elmType, int seed) {
   if (TensorInitInt::isTypeSupported(elmType)) {
     auto dataType = TensorInitInt::getTensorInitDataType(elmType);
     switch (type) {
+       
     case TensorInitType::Constant:
+    std::cout << "6" << std::endl;
       initPtr = std::make_shared<ConstantTensorInitInt>(dataType);
       break;
     case TensorInitType::Simple:
+      std::cout << "7" << std::endl;
       initPtr = std::make_shared<SimpleTensorInitInt>(dataType);
       break;
     case TensorInitType::Continuous:
+      std::cout << "8" << std::endl;
       initPtr = std::make_shared<ContinuousTensorInitInt>(dataType);
       break;
     case TensorInitType::Random:
+      std::cout << "9" << std::endl;
       assert(seed && "Can't call random initializers without seed");
       initPtr = std::make_shared<RandomTensorInitInt>(dataType, seed);
       break;
     case TensorInitType::Normal:
+      std::cout << "10" << std::endl;
       assert(seed && "Can't call random initializers without seed");
       initPtr = std::make_shared<NormalTensorInitInt>(dataType, seed);
       break;

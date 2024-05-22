@@ -7,7 +7,7 @@
 //===----------------------------------------------------------------------===//
 
 #include "TPP/Transforms/Utils/TensorInitFloat.h"
-
+#include<iostream> 
 using namespace mlir;
 
 TensorInitFloat::DataType
@@ -61,14 +61,17 @@ DenseElementsAttr ConstantTensorInitFloat::get(ShapedType shape) {
   // See: lib/Dialect/MemRef/IR/MemRefOps.cpp :: GlobalOp::verify
   auto tensorType =
       RankedTensorType::get(shape.getShape(), shape.getElementType());
+  std::cout << "ConstantTensorInitFloat::get 1,0f" <<  std::endl; 
   return mlir::DenseElementsAttr::get(tensorType, floatValue);
 }
 
 void ConstantTensorInitFloat::fillData() {
+  std::cout << "ConstantTensorInitFloat::fillData()" << std::endl;
   assert(false && "Should not be called");
 }
 
 void SimpleTensorInitFloat::fillData() {
+  std::cout << "SimpleTensorInitFloat::fillData" << std::endl;
   assert(buffer.size() == 0 && "Buffer not empty");
   float data[3] = {0.3f, 0.6f, 0.9f};
   for (size_t i = 0; i < size; i++)
@@ -76,6 +79,7 @@ void SimpleTensorInitFloat::fillData() {
 }
 
 void ContinuousTensorInitFloat::fillData() {
+  std::cout << "ContinuousTensorInitFloat::fillData()" << std::endl;
   assert(buffer.size() == 0 && "Buffer not empty");
   float normFactor = static_cast<float>(size);
   for (size_t i = 0; i < size; i++)
@@ -83,12 +87,14 @@ void ContinuousTensorInitFloat::fillData() {
 }
 
 void RandomTensorInitFloat::fillData() {
+  std::cout << "RandomTensorInitFloat::fillData()" << std::endl;
   assert(buffer.size() == 0 && "Buffer not empty");
   for (size_t i = 0; i < size; i++)
     push(next());
 }
 
 void NormalTensorInitFloat::fillData() {
+  std::cout << "NormalTensorInitFloat::fillData()" << std::endl;
   assert(buffer.size() == 0 && "Buffer not empty");
   for (size_t i = 0; i < size; i++)
     push(next());
